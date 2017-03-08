@@ -59979,6 +59979,9 @@ Plotting
     ## 10 ALIBED      26.27273
     ## # ... with 160 more rows
 
+R graphics
+==========
+
     housing <- read.csv("Rgraphics/dataSets/landdata-states.csv")
     head(housing[1:5])
 
@@ -60256,12 +60259,166 @@ Putting it Altogether
     library("ggrepel")
 
 
+    econ <- read.csv("Rgraphics/dataSets/EconomistData.csv")
+    econ$pred.HDI <- predict(lm(econ$HDI ~ econ$CPI))
 
+    econ$Country
 
-    hp2001Q1$pred.SC <- predict(lm(Structure.Cost ~ log(Land.Value), data = hp2001Q1))
+    ##   [1] Afghanistan                      Albania                         
+    ##   [3] Algeria                          Angola                          
+    ##   [5] Argentina                        Armenia                         
+    ##   [7] Australia                        Austria                         
+    ##   [9] Azerbaijan                       Bahamas                         
+    ##  [11] Bahrain                          Bangladesh                      
+    ##  [13] Barbados                         Belarus                         
+    ##  [15] Belgium                          Benin                           
+    ##  [17] Bhutan                           Bolivia                         
+    ##  [19] Bosnia and Herzegovina           Botswana                        
+    ##  [21] Brazil                           Britain                         
+    ##  [23] Bulgaria                         Burkina Faso                    
+    ##  [25] Burundi                          Cambodia                        
+    ##  [27] Cameroon                         Canada                          
+    ##  [29] Cape Verde                       Central African Republic        
+    ##  [31] Chad                             Chile                           
+    ##  [33] China                            Colombia                        
+    ##  [35] Comoros                          Congo                           
+    ##  [37] Congo  Republic                  Costa Rica                      
+    ##  [39] Côte d'Ivoire                    Croatia                         
+    ##  [41] Cuba                             Cyprus                          
+    ##  [43] Czech Republic                   Denmark                         
+    ##  [45] Djibouti                         Dominica                        
+    ##  [47] Dominican Republic               Ecuador                         
+    ##  [49] Egypt                            El Salvador                     
+    ##  [51] Equatorial Guinea                Eritrea                         
+    ##  [53] Estonia                          Ethiopia                        
+    ##  [55] Finland                          France                          
+    ##  [57] Gabon                            Gambia                          
+    ##  [59] Georgia                          Germany                         
+    ##  [61] Ghana                            Greece                          
+    ##  [63] Guatemala                        Guinea                          
+    ##  [65] Guinea-Bissau                    Guyana                          
+    ##  [67] Haiti                            Honduras                        
+    ##  [69] Hong Kong                        Hungary                         
+    ##  [71] Iceland                          India                           
+    ##  [73] Indonesia                        Iran                            
+    ##  [75] Iraq                             Ireland                         
+    ##  [77] Israel                           Italy                           
+    ##  [79] Jamaica                          Japan                           
+    ##  [81] Jordan                           Kazakhstan                      
+    ##  [83] Kenya                            Kiribati                        
+    ##  [85] Korea (South)                    Kuwait                          
+    ##  [87] Kyrgyzstan                       Laos                            
+    ##  [89] Latvia                           Lebanon                         
+    ##  [91] Lesotho                          Liberia                         
+    ##  [93] Libya                            Lithuania                       
+    ##  [95] Luxembourg                       Madagascar                      
+    ##  [97] Malawi                           Malaysia                        
+    ##  [99] Maldives                         Mali                            
+    ## [101] Malta                            Mauritania                      
+    ## [103] Mauritius                        Mexico                          
+    ## [105] Moldova                          Mongolia                        
+    ## [107] Montenegro                       Morocco                         
+    ## [109] Mozambique                       Myanmar                         
+    ## [111] Namibia                          Nepal                           
+    ## [113] Netherlands                      New Zealand                     
+    ## [115] Nicaragua                        Niger                           
+    ## [117] Nigeria                          Norway                          
+    ## [119] Oman                             Pakistan                        
+    ## [121] Panama                           Papua New Guinea                
+    ## [123] Paraguay                         Peru                            
+    ## [125] Philippines                      Poland                          
+    ## [127] Portugal                         Qatar                           
+    ## [129] Romania                          Russia                          
+    ## [131] Rwanda                           Saint Lucia                     
+    ## [133] Saint Vincent and the Grenadines Samoa                           
+    ## [135] Saudi Arabia                     Senegal                         
+    ## [137] Serbia                           Seychelles                      
+    ## [139] Sierra Leone                     Singapore                       
+    ## [141] Slovakia                         Slovenia                        
+    ## [143] Solomon Islands                  South Africa                    
+    ## [145] Spain                            Sri Lanka                       
+    ## [147] Sudan                            Suriname                        
+    ## [149] Swaziland                        Sweden                          
+    ## [151] Switzerland                      Syria                           
+    ## [153] Tajikistan                       Tanzania                        
+    ## [155] Thailand                         Timor-Leste                     
+    ## [157] Togo                             Tonga                           
+    ## [159] Trinidad and Tobago              Tunisia                         
+    ## [161] Turkey                           Turkmenistan                    
+    ## [163] Uganda                           Ukraine                         
+    ## [165] United Arab Emirates             United States                   
+    ## [167] Uruguay                          Uzbekistan                      
+    ## [169] Vanuatu                          Venezuela                       
+    ## [171] Yemen                            Zambia                          
+    ## [173] Zimbabwe                        
+    ## 173 Levels: Afghanistan Albania Algeria Angola Argentina ... Zimbabwe
 
-    p1 <- ggplot(hp2001Q1, aes(x = log(Land.Value), y = Structure.Cost))
+    econ$Country[c(1, 33, 29, 36, 5, 13, 21,22,17,20,60,62,56,72,75,78,80,110,114,118,130,131,140,144,145,147,166,170)]
 
-    p1 + geom_line(color = "red", aes(y = pred.SC))+ geom_text_repel(aes(label=State), size = 3) + theme_minimal() + theme(legend.position="top", panel.grid.major.y = element_line(size = 1), panel.grid.minor.y = element_line(size = 1), panel.grid.major.x = element_line(size = 0),panel.grid.minor.x = element_line(size = 0) )+ geom_point(size = 3, shape=1, aes(color = region)) + labs(x= "Land Value",  y = "Structure Cost", title = "Land Value vs Structure Cost")
+    ##  [1] Afghanistan   China         Cape Verde    Congo         Argentina    
+    ##  [6] Barbados      Brazil        Britain       Bhutan        Botswana     
+    ## [11] Germany       Greece        France        India         Iraq         
+    ## [16] Italy         Japan         Myanmar       New Zealand   Norway       
+    ## [21] Russia        Rwanda        Singapore     South Africa  Spain        
+    ## [26] Sudan         United States Venezuela    
+    ## 173 Levels: Afghanistan Albania Algeria Angola Argentina ... Zimbabwe
+
+    econ$Country_new <- econ$Country
+    econ$Country_new[-c(1, 33, 29, 36, 5, 13, 21,22,17,20,60,62,56,72,75,78,80,110,114,118,130,131,140,144,145,147,166,170)] = ""
+
+    ## Warning in `[<-.factor`(`*tmp*`, -c(1, 33, 29, 36, 5, 13, 21, 22, 17, 20, :
+    ## invalid factor level, NA generated
+
+    econ$Country_new
+
+    ##   [1] Afghanistan   <NA>          <NA>          <NA>          Argentina    
+    ##   [6] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ##  [11] <NA>          <NA>          Barbados      <NA>          <NA>         
+    ##  [16] <NA>          Bhutan        <NA>          <NA>          Botswana     
+    ##  [21] Brazil        Britain       <NA>          <NA>          <NA>         
+    ##  [26] <NA>          <NA>          <NA>          Cape Verde    <NA>         
+    ##  [31] <NA>          <NA>          China         <NA>          <NA>         
+    ##  [36] Congo         <NA>          <NA>          <NA>          <NA>         
+    ##  [41] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ##  [46] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ##  [51] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ##  [56] France        <NA>          <NA>          <NA>          Germany      
+    ##  [61] <NA>          Greece        <NA>          <NA>          <NA>         
+    ##  [66] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ##  [71] <NA>          India         <NA>          <NA>          Iraq         
+    ##  [76] <NA>          <NA>          Italy         <NA>          Japan        
+    ##  [81] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ##  [86] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ##  [91] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ##  [96] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ## [101] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ## [106] <NA>          <NA>          <NA>          <NA>          Myanmar      
+    ## [111] <NA>          <NA>          <NA>          New Zealand   <NA>         
+    ## [116] <NA>          <NA>          Norway        <NA>          <NA>         
+    ## [121] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ## [126] <NA>          <NA>          <NA>          <NA>          Russia       
+    ## [131] Rwanda        <NA>          <NA>          <NA>          <NA>         
+    ## [136] <NA>          <NA>          <NA>          <NA>          Singapore    
+    ## [141] <NA>          <NA>          <NA>          South Africa  Spain        
+    ## [146] <NA>          Sudan         <NA>          <NA>          <NA>         
+    ## [151] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ## [156] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ## [161] <NA>          <NA>          <NA>          <NA>          <NA>         
+    ## [166] United States <NA>          <NA>          <NA>          Venezuela    
+    ## [171] <NA>          <NA>          <NA>         
+    ## 173 Levels: Afghanistan Albania Algeria Angola Argentina ... Zimbabwe
+
+    ?geom_smooth()
+
+    p1 <- ggplot(econ, aes(x = CPI, y = HDI ))
+    p1
 
 ![](exercise-8_files/figure-markdown_strict/unnamed-chunk-34-1.png)
+
+    p1 + geom_smooth(span = 3.0, level = 0, color = "red")  + theme_minimal() + theme(legend.position="top", panel.grid.major.y = element_line(size = 1), panel.grid.minor.y = element_line(size = 1), panel.grid.major.x = element_line(size = 0), panel.grid.minor.x = element_line(size =0)) + geom_point(size = 4, shape=16, aes(color = Region)) + geom_point(size = 2, shape=16, color = "white") + geom_text_repel(aes(label=Country_new), size = 3)+ labs(x= "Corruption Perceptions Index, 2011 (10=least corrupt)", y = "Human Development Index, 2011 (1=best)", title = "Corruption and Human Development") 
+
+    ## `geom_smooth()` using method = 'loess'
+
+    ## Warning: Removed 145 rows containing missing values (geom_text_repel).
+
+![](exercise-8_files/figure-markdown_strict/unnamed-chunk-34-2.png)

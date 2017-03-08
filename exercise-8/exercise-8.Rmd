@@ -3,7 +3,7 @@ title: "exercise-8"
 output: md_document
 ---
 
-## REading in data files
+## Reading in data files
 
 ```{r}
 cocoli_data <- read.table("~/Desktop/eeb-177/class-assignments/classwork-tues-2-21-17/cocoli.txt", header = TRUE)
@@ -52,7 +52,7 @@ cocoli_data %>% filter(dbh1 > 0) %>% arrange(-dbh1) %>% select(spcode)
 
 cocoli_data %>% filter(dbh1 > 0) %>% group_by(spcode) %>% summarize(mean_dbh_1994 = mean(dbh1))
 ```
-
+# R graphics
 
 
 
@@ -309,12 +309,6 @@ ggplot(home.land.byyear,
 
 
 
-
-
-
-
-
-
 # Putting it Altogether
 
 
@@ -324,11 +318,18 @@ library(tidyr)
 library("ggrepel")
 
 
+econ <- read.csv("Rgraphics/dataSets/EconomistData.csv")
+econ$pred.HDI <- predict(lm(econ$HDI ~ econ$CPI))
 
+econ$Country
+econ$Country[c(1, 33, 29, 36, 5, 13, 21,22,17,20,60,62,56,72,75,78,80,110,114,118,130,131,140,144,145,147,166,170)]
 
-hp2001Q1$pred.SC <- predict(lm(Structure.Cost ~ log(Land.Value), data = hp2001Q1))
+econ$Country_new <- econ$Country
+econ$Country_new[-c(1, 33, 29, 36, 5, 13, 21,22,17,20,60,62,56,72,75,78,80,110,114,118,130,131,140,144,145,147,166,170)] = ""
+econ$Country_new
+?geom_smooth()
 
-p1 <- ggplot(hp2001Q1, aes(x = log(Land.Value), y = Structure.Cost))
-
-p1 + geom_line(color = "red", aes(y = pred.SC))+ geom_text_repel(aes(label=State), size = 3) + theme_minimal() + theme(legend.position="top", panel.grid.major.y = element_line(size = 1), panel.grid.minor.y = element_line(size = 1), panel.grid.major.x = element_line(size = 0),panel.grid.minor.x = element_line(size = 0) )+ geom_point(size = 3, shape=1, aes(color = region)) + labs(x= "Land Value",  y = "Structure Cost", title = "Land Value vs Structure Cost")
+p1 <- ggplot(econ, aes(x = CPI, y = HDI ))
+p1
+p1 + geom_smooth(span = 3.0, level = 0, color = "red")  + theme_minimal() + theme(legend.position="top", panel.grid.major.y = element_line(size = 1), panel.grid.minor.y = element_line(size = 1), panel.grid.major.x = element_line(size = 0), panel.grid.minor.x = element_line(size =0)) + geom_point(size = 4, shape=16, aes(color = Region)) + geom_point(size = 2, shape=16, color = "white") + geom_text_repel(aes(label=Country_new), size = 3)+ labs(x= "Corruption Perceptions Index, 2011 (10=least corrupt)", y = "Human Development Index, 2011 (1=best)", title = "Corruption and Human Development") 
 ```
